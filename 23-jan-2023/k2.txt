@@ -1,0 +1,6 @@
+hello
+total 12
+-rw-r--r-- 1 aran aran  6 Jan 23 10:55 j1.txt
+-rw-r--r-- 1 aran aran  6 Jan 23 13:34 j2.txt
+-rw-r--r-- 1 aran aran 12 Jan 23 13:34 j3.txt
+-rw-r--r-- 1 aran aran  0 Jan 23 13:46 k1.txt
