@@ -1,0 +1,72 @@
+$ sudo apt-get install docker.io
+
+$ docker --version
+Docker version 20.10.12, build 20.10.12-0ubuntu2~18.04.1
+
+$ sudo service docker status
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: active (running) since Mon 2023-02-06 12:59:59 IST; 42min ago
+     Docs: https://docs.docker.com
+ Main PID: 3503 (dockerd)
+    Tasks: 14
+   CGroup: /system.slice/docker.service
+           └─3503 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Feb 06 12:59:57 Aran dockerd[3503]: time="2023-02-06T12:59:57.723711827+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.432434034+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.756861920+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.909394907+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.909666107+05:30" level=info msg="
+Feb 06 12:59:59 Aran systemd[1]: Started Docker Application Container Engine.
+Feb 06 12:59:59 Aran dockerd[3503]: time="2023-02-06T12:59:59.065035197+05:30" level=info msg="
+Feb 06 13:00:39 Aran dockerd[3503]: time="2023-02-06T13:00:39.764069326+05:30" level=info msg="
+Feb 06 13:38:45 Aran dockerd[3503]: time="2023-02-06T13:38:45.190223822+05:30" level=info msg="
+Feb 06 13:41:07 Aran dockerd[3503]: time="2023-02-06T13:41:07.386754327+05:30" level=info msg="
+lines 1-19/19 (END)
+
+
+$ docker run hello-world
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create": dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+
+$ sudo chmod 777 /var/run/docker.sock
+
+$ docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+-----------------------------------------------------------------------
+create a account in docker hub
+-----------------------------------------------------------------------
+
+$ docker image pull hello-world
+Using default tag: latest
+latest: Pulling from library/hello-world
+Digest: sha256:aa0cc8055b82dc2509bed2e19b275c8f463506616377219d9642221ab53cf9fe
+Status: Image is up to date for hello-world:latest
+docker.io/library/hello-world:latest
+
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+hello-world   latest    feb5d9fea6a5   16 months ago   13.3kB
+
