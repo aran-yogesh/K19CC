@@ -1,0 +1,159 @@
+$ sudo apt-get install docker.io
+
+$ docker --version
+Docker version 20.10.12, build 20.10.12-0ubuntu2~18.04.1
+
+$ sudo service docker status
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: active (running) since Mon 2023-02-06 12:59:59 IST; 42min ago
+     Docs: https://docs.docker.com
+ Main PID: 3503 (dockerd)
+    Tasks: 14
+   CGroup: /system.slice/docker.service
+           └─3503 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Feb 06 12:59:57 Aran dockerd[3503]: time="2023-02-06T12:59:57.723711827+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.432434034+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.756861920+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.909394907+05:30" level=info msg="
+Feb 06 12:59:58 Aran dockerd[3503]: time="2023-02-06T12:59:58.909666107+05:30" level=info msg="
+Feb 06 12:59:59 Aran systemd[1]: Started Docker Application Container Engine.
+Feb 06 12:59:59 Aran dockerd[3503]: time="2023-02-06T12:59:59.065035197+05:30" level=info msg="
+Feb 06 13:00:39 Aran dockerd[3503]: time="2023-02-06T13:00:39.764069326+05:30" level=info msg="
+Feb 06 13:38:45 Aran dockerd[3503]: time="2023-02-06T13:38:45.190223822+05:30" level=info msg="
+Feb 06 13:41:07 Aran dockerd[3503]: time="2023-02-06T13:41:07.386754327+05:30" level=info msg="
+lines 1-19/19 (END)
+
+
+$ docker run hello-world
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create": dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+
+$ sudo chmod 777 /var/run/docker.sock
+
+$ docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+-----------------------------------------------------------------------
+create a account in docker hub
+-----------------------------------------------------------------------
+
+$ docker image pull hello-world
+Using default tag: latest
+latest: Pulling from library/hello-world
+Digest: sha256:aa0cc8055b82dc2509bed2e19b275c8f463506616377219d9642221ab53cf9fe
+Status: Image is up to date for hello-world:latest
+docker.io/library/hello-world:latest
+
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+hello-world   latest    feb5d9fea6a5   16 months ago   13.3kB
+
+----------------------------------------------------------------------------------------------------------------
+================================================================================================================
+----------------------------------------------------------------------------------------------------------------
+
+$ sudo chmod 666 /var/run/docker.sock
+
+$ docker build .
+Sending build context to Docker daemon  2.048kB
+Step 1/5 : FROM ubuntu
+latest: Pulling from library/ubuntu
+677076032cca: Downloading [=====================>                             ]  12.95MB/29.53MB
+677076032cca: Pull complete
+Digest: sha256:9a0bdde4188b896a372804be2384015e90e3f84906b750c1a53539b585fbbe7f
+Status: Downloaded newer image for ubuntu:latest
+ ---> 58db3edaf2be
+Step 2/5 : MAINTAINER yogeshmahe04@gmail.com
+ ---> Running in 3287cf3ad093
+Removing intermediate container 3287cf3ad093
+ ---> ece712f6376a
+Step 3/5 : RUN apt-get update
+ ---> Running in 5f99e363ce1a
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [114 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [5557 B]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [107 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [799 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [754 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [681 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [1083 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [8978 B]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [734 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1008 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [22.4 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [49.0 kB]
+Fetched 25.4 MB in 56s (453 kB/s)
+Reading package lists...
+Removing intermediate container 5f99e363ce1a
+ ---> 9ea034d2bbf5
+Step 4/5 : RUN apt-get clean
+ ---> Running in 07cc8dc95047
+Removing intermediate container 07cc8dc95047
+ ---> e9a8c241bf01
+Step 5/5 : CMD ["echo","Image created"]
+ ---> Running in ffb7cdc4386c
+Removing intermediate container ffb7cdc4386c
+ ---> 3ff500809bfe
+Successfully built 3ff500809bfe
+
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+<none>        <none>    3ff500809bfe   44 seconds ago   119MB
+ubuntu        latest    58db3edaf2be   12 days ago      77.8MB
+hello-world   latest    feb5d9fea6a5   16 months ago    13.3kB
+
+$ docker build -t myimage1:1.0 .
+Sending build context to Docker daemon  2.048kB
+Step 1/5 : FROM ubuntu
+ ---> 58db3edaf2be
+Step 2/5 : MAINTAINER yogeshmahe04@gmail.com
+ ---> Using cache
+ ---> ece712f6376a
+Step 3/5 : RUN apt-get update
+ ---> Using cache
+ ---> 9ea034d2bbf5
+Step 4/5 : RUN apt-get clean
+ ---> Using cache
+ ---> e9a8c241bf01
+Step 5/5 : CMD ["echo","Image created"]
+ ---> Using cache
+ ---> 3ff500809bfe
+Successfully built 3ff500809bfe
+Successfully tagged myimage1:1.0
+
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+myimage1      1.0       3ff500809bfe   5 minutes ago   119MB
+ubuntu        latest    58db3edaf2be   12 days ago     77.8MB
+hello-world   latest    feb5d9fea6a5   16 months ago   13.3kB
+
+
+
+
