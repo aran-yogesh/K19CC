@@ -1,0 +1,202 @@
+--------------------------------------------------------------------------------------------------
+==================================================================================================
+--------------------------------------------------------------------------------------------------
+8-february-2023
+-----------------------------------------------------------------------------------------------
+==============================================================================================
+-----------------------------------------------------------------------------------------------
+
+$ docker build .
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock:
+ Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/build?buildargs=%7B%7D&cachefrom=%5B%5D&cgroupparent=&cpuperiod
+=0&cpuquota=0&cpusetcpus=&cpusetmems=&cpushares=0&dockerfile=Dockerfile&labels=%7B%7D&memory=0&memswap=0&networkmode
+=default&rm=1&shmsize=0&target=&ulimits=null&version=1": dial unix /var/run/docker.sock: connect: permission denied
+
+
+if during build there is error with permission denied then change permission with chmod in /var/run/docker.sock
+---------------------------------------------------------------------------------------------------------------
+
+
+$ sudo chmod 777 /var/run/docker.sock
+
+$ docker build .
+Sending build context to Docker daemon  3.072kB
+Step 1/5 : FROM python:latest
+latest: Pulling from library/python
+699c8a97647f: Pull complete
+86cd158b89fd: Pull complete
+a226e961cfaa: Pull complete
+4cec535da207: Pull complete
+225fdd30e1a3: Downloading [====================================>              ]  145.6MB/196.9MB
+225fdd30e1a3: Pull complete
+356a16c6c201: Pull complete
+c1615dab98ef: Pull complete
+8b4436f8e17c: Pull complete
+c20627d9f29f: Pull complete
+Digest: sha256:4d25a30d2943e5feb9c571b763936c843d7a6f45216f508bfe99741067f4ca06
+Status: Downloaded newer image for python:latest
+ ---> 5d77ae66b03b
+Step 2/5 : LABEL Maintainer="Aran_yogesh"
+ ---> Running in 53dd4a22f198
+Removing intermediate container 53dd4a22f198
+ ---> 090b08df2ac3
+Step 3/5 : WORKDIR /usr/app/src
+ ---> Running in 9831688d8777
+Removing intermediate container 9831688d8777
+ ---> fac59bb49d67
+Step 4/5 : COPY test.py ./
+ ---> eeb057c8e577
+Step 5/5 : CMD [ "python", "./test.py" ]
+ ---> Running in d8f9503c0cc9
+Removing intermediate container d8f9503c0cc9
+ ---> 7ba2eef552e6
+Successfully built 7ba2eef552e6
+
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+<none>        <none>    7ba2eef552e6   11 seconds ago   925MB
+myimage1      1.0       3ff500809bfe   24 hours ago     119MB
+python        latest    5d77ae66b03b   3 days ago       925MB
+ubuntu        latest    58db3edaf2be   13 days ago      77.8MB
+hello-world   latest    feb5d9fea6a5   16 months ago    13.3kB
+
+$ docker build -t python1:1.0 .
+Sending build context to Docker daemon  3.072kB
+Step 1/5 : FROM python:latest
+ ---> 5d77ae66b03b
+Step 2/5 : LABEL Maintainer="Aran_yogesh"
+ ---> Using cache
+ ---> 090b08df2ac3
+Step 3/5 : WORKDIR /usr/app/src
+ ---> Using cache
+ ---> fac59bb49d67
+Step 4/5 : COPY test.py ./
+ ---> Using cache
+ ---> eeb057c8e577
+Step 5/5 : CMD [ "python", "./test.py" ]
+ ---> Using cache
+ ---> 7ba2eef552e6
+Successfully built 7ba2eef552e6
+Successfully tagged python1:1.0
+
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED              SIZE
+python1       1.0       7ba2eef552e6   About a minute ago   925MB
+myimage1      1.0       3ff500809bfe   24 hours ago         119MB
+python        latest    5d77ae66b03b   3 days ago           925MB
+ubuntu        latest    58db3edaf2be   13 days ago          77.8MB
+hello-world   latest    feb5d9fea6a5   16 months ago        13.3kB
+
+$ docker run 5bd5038d1d98
+entry is made for images and container
+
+$ sudo docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+create a dockerfile to perform for other user rather than root within the container --> 2dockerfile
+========================================================================================
+creating a entry
+
+$ docker build -t entry:1.0 .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM python:latest
+ ---> 5d77ae66b03b
+Step 2/3 : LABEL Maintainer = "Aran Yogesh"
+ ---> Using cache
+ ---> 698db5d0f9d2
+Step 3/3 : ENTRYPOINT print "entry is made for images and container "
+ ---> Using cache
+ ---> 37a15ede7ddb
+Successfully built 37a15ede7ddb
+Successfully tagged entry:1.0
+
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+entry         1.0       37a15ede7ddb   49 seconds ago   925MB
+python1       1.0       7ba2eef552e6   3 hours ago      925MB
+myimage1      1.0       3ff500809bfe   27 hours ago     119MB
+python        latest    5d77ae66b03b   3 days ago       925MB
+ubuntu        latest    58db3edaf2be   13 days ago      77.8MB
+hello-world   latest    feb5d9fea6a5   16 months ago    13.3kB
+
+
+$ docker build .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM python:latest
+ ---> 5d77ae66b03b
+Step 2/3 : LABEL Maintainer = "Aran Yogesh"
+ ---> Using cache
+ ---> 698db5d0f9d2
+Step 3/3 : ENTRYPOINT print "entry is made for images and container "
+ ---> Using cache
+ ---> 37a15ede7ddb
+Successfully built 37a15ede7ddb
+
+$ sudo docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+/2dockerfile$ nano Dockerfile
+aran@Aran:~/devops/8-jan-2023/2nd-hour/2dockerfile$ docker build -t user:1.0 .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM ubuntu:latest
+ ---> 58db3edaf2be
+Step 2/4 : RUN apt-get -y update
+ ---> Running in 40331b7ab3a9
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [107 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [799 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [681 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [5557 B]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [754 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [9667 B]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [734 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1010 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [1085 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [22.4 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [49.0 kB]
+Fetched 25.4 MB in 29s (874 kB/s)
+Reading package lists...
+Removing intermediate container 40331b7ab3a9
+ ---> 27bee186141e
+Step 3/4 : RUN groupadd -r user && useradd -r -g user user
+ ---> Running in 2470d853ebf6
+Removing intermediate container 2470d853ebf6
+ ---> 1159ad4c4383
+Step 4/4 : USER user
+ ---> Running in a8c03c8fa087
+Removing intermediate container a8c03c8fa087
+ ---> 106486f4fac1
+Successfully built 106486f4fac1
+Successfully tagged user:1.0
+
+ $ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+user          1.0       106486f4fac1   11 seconds ago   119MB
+entry         latest    5bd5038d1d98   16 minutes ago   77.8MB
+entry         1.0       37a15ede7ddb   18 minutes ago   925MB
+python1       1.0       7ba2eef552e6   3 hours ago      925MB
+myimage1      1.0       3ff500809bfe   27 hours ago     119MB
+python        latest    5d77ae66b03b   3 days ago       925MB
+ubuntu        latest    58db3edaf2be   13 days ago      77.8MB
+hello-world   latest    feb5d9fea6a5   16 months ago    13.3kB
+
+$ docker run 106486f4fac1
+
+$ sudo docker run -it user:1.0 bash
+user@f5654de5e08a:/$ id
+uid=999(user) gid=999(user) groups=999(user)
+user@f5654de5e08a:/$ docker run --help
+bash: docker: command not found
+user@f5654de5e08a:/$ exit
+exits
+
+write a docker file to set base image at ubuntu workdir to /var/www/html --> 3dockerfile
+=========================================================================
+
+-->4dockerfile
