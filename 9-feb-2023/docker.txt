@@ -1,0 +1,68 @@
+------------------------------------------------------------------------------------------------------------------------------------------
+===========================================================================================================================================
+9 february 2023
+===========================================================================================================================================
+-------------------------------------------------------------------------------------------------------------------------------------------
+create a nano docker-compose.yml file
+
+version: '2'
+services:
+    databases:
+      image: redis
+    web:
+      image: nginx
+
+$ docker-compose up -d ------------------------>>>>> to evaluate compose file
+Starting 9feb2023_web_1 ...
+Starting 9feb2023_web_1
+Starting 9feb2023_databases_1 ...
+Starting 9feb2023_databases_1 ... done
+
+
+if didnt get executed run $ sudo chmod 777 /var/run/docker.sock ------------>>> give permission then run the file 
+
+
+$ docker ps ----------------->>>>>> container details
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS              PORTS      NAMES
+da7384a05ad9   redis     "docker-entrypoint.s…"   34 minutes ago   Up About a minute   6379/tcp   9feb2023_databases_1
+9ee71adc5178   nginx     "/docker-entrypoint.…"   34 minutes ago   Up About a minute   80/tcp     9feb2023_web_1
+
+$ docker-compose down
+Stopping 9feb2023_databases_1 ... done
+Stopping 9feb2023_web_1       ... done
+Removing 9feb2023_databases_1 ... done
+Removing 9feb2023_web_1       ... done
+Removing network 9feb2023_default
+
+
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+-------------------------------------------------------------------------------------------
+============================================================================================
+--------------------------------------------------------------------------------------------
+2nd hour
+--------------------------------------------------------------------------------------------
+============================================================================================
+--------------------------------------------------------------------------------------------
+
+
+
+
+$ nano docker-compose.yml
+
+$ docker-compose config
+services:
+  database:
+    image: redis
+  web:
+    image: nginx
+    ports:
+    - 9090:80/tcp ----------------->>> 9090 = any port number , 80 = for htttp number   
+version: '2.2'
+
+enviornmetal variable 
+=====================
+
+
+

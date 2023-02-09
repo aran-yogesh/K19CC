@@ -1,0 +1,56 @@
+1. create a directory structure
+mkdir dockercompose
+cd dockercompose
+mkdir webapp1
+cd webapp1
+
+2. create a file:
+
+nano index.html
+
+<h2>workstatus ok</h2>
+
+3. Create Dockerfile for Webapp1
+
+FROM ubuntu:latest
+
+RUN apt-get update \
+   && apt-get install -y apache2
+
+COPY index.html /var/www/html/
+WORKDIR /var/www/html
+CMD ["apachectl", "-D", "FOREGROUND"]
+EXPOSE 80
+
+EXit from Webapp1
+
+Create docker-compose.yml
+
+version: '3'
+services:
+  db:
+     image: mysql
+     container_name: mysql_db
+     restart: always
+     environment:
+        - MYSQL_ROOT_PASSWORD="secret"
+  web:
+    image: apache
+    build: ./webapp1
+    depends_on:
+       - db
+    container_name: apache_web
+    restart: always
+    ports:
+      - "9090:80"
+
+Build Webapp1 Image
+
+docker-compose build
+
+Launch Docker Containers
+
+docker-compose up -d
+
+http://localhost:9090/
+

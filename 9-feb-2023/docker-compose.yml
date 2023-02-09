@@ -1,0 +1,6 @@
+version: '2'
+services:
+    databases:
+      image: redis
+    web:
+      image: nginx
