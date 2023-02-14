@@ -1,0 +1,90 @@
+$ docker run -d -P training/webapp python app.py
+dc25fa210b670d9ac71adaafc6abb3195f476b7fb123d404af647013be58af06
+
+
+$ docker ps
+CONTAINER ID   IMAGE             COMMAND                  CREATED              STATUS                          PORTS                                         NAMES
+dc25fa210b67   training/webapp   "python app.py"          About a minute ago   Up About a minute               0.0.0.0:49156->5000/tcp, :::49156->5000/tcp   nice_austin
+d6c734eb0c95   training/webapp   "python app.py"          About a minute ago   Up About a minute               0.0.0.0:49155->5000/tcp, :::49155->5000/tcp   interesting_williamson
+f767649ef30f   training/webapp   "python app.py"          2 minutes ago        Up About a minute               0.0.0.0:49154->5000/tcp, :::49154->5000/tcp   eager_jang
+c73813e0b00a   training/webapp   "python app.py"          2 minutes ago        Up 2 minutes                    0.0.0.0:49153->5000/tcp, :::49153->5000/tcp   amazing_diffie
+4d35b0dfa400   apache            "apachectl -D FOREGR…"   4 days ago           Up 22 minutes                   0.0.0.0:9090->80/tcp, :::9090->80/tcp         apache_web
+ad4c76a9e0e0   mysql             "docker-entrypoint.s…"   4 days ago           Restarting (1) 20 seconds ago                                                 mysql_db
+
+$ docker run -d -p 8000-9000:5000 training/webapp python app.py
+82696a5896b96d6001465724484a4ddef2226442bf6ce7b0e4e2877bf4b4c7bf
+
+$ docker run -d -p 8000-9000:5000 training/webapp python app.py
+
+$ docker ps
+CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS                          PORTS                                         NAMES
+82696a5896b9   training/webapp   "python app.py"          6 seconds ago   Up 4 seconds                    0.0.0.0:8000->5000/tcp, :::8000->5000/tcp     trusting_chandrasekhar
+dc25fa210b67   training/webapp   "python app.py"          4 minutes ago   Up 4 minutes                    0.0.0.0:49156->5000/tcp, :::49156->5000/tcp   nice_austin
+d6c734eb0c95   training/webapp   "python app.py"          5 minutes ago   Up 5 minutes                    0.0.0.0:49155->5000/tcp, :::49155->5000/tcp   interesting_williamson
+f767649ef30f   training/webapp   "python app.py"          5 minutes ago   Up 5 minutes                    0.0.0.0:49154->5000/tcp, :::49154->5000/tcp   eager_jang
+c73813e0b00a   training/webapp   "python app.py"          5 minutes ago   Up 5 minutes                    0.0.0.0:49153->5000/tcp, :::49153->5000/tcp   amazing_diffie
+4d35b0dfa400   apache            "apachectl -D FOREGR…"   4 days ago      Up 25 minutes                   0.0.0.0:9090->80/tcp, :::9090->80/tcp         apache_web
+ad4c76a9e0e0   mysql             "docker-entrypoint.s…"   4 days ago      Restarting (1) 29 seconds ago                                                 mysql_db
+
+$ docker run -d -p 127.0.0.1:8080:5000 training/webapp python app.py
+4982a7e2a79f315d0d7561a078f1d65ef916409df8ee9088ac5977851f00f570
+
+$ docker ps
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS                         PORTS                                         NAMES
+03248001f24e   training/webapp   "python app.py"          21 seconds ago   Up 6 seconds                   5000/tcp, 127.0.0.1:8080->5000/udp            distracted_kepler
+4982a7e2a79f   training/webapp   "python app.py"          2 minutes ago    Up 2 minutes                   127.0.0.1:8080->5000/tcp                      wonderful_davinci
+82696a5896b9   training/webapp   "python app.py"          8 minutes ago    Up 7 minutes                   0.0.0.0:8000->5000/tcp, :::8000->5000/tcp     trusting_chandrasekhar
+dc25fa210b67   training/webapp   "python app.py"          12 minutes ago   Up 12 minutes                  0.0.0.0:49156->5000/tcp, :::49156->5000/tcp   nice_austin
+d6c734eb0c95   training/webapp   "python app.py"          13 minutes ago   Up 13 minutes                  0.0.0.0:49155->5000/tcp, :::49155->5000/tcp   interesting_williamson
+f767649ef30f   training/webapp   "python app.py"          13 minutes ago   Up 13 minutes                  0.0.0.0:49154->5000/tcp, :::49154->5000/tcp   eager_jang
+c73813e0b00a   training/webapp   "python app.py"          13 minutes ago   Up 13 minutes                  0.0.0.0:49153->5000/tcp, :::49153->5000/tcp   amazing_diffie
+4d35b0dfa400   apache            "apachectl -D FOREGR…"   4 days ago       Up 33 minutes                  0.0.0.0:9090->80/tcp, :::9090->80/tcp         apache_web
+ad4c76a9e0e0   mysql             "docker-entrypoint.s…"   4 days ago       Restarting (1) 9 seconds ago                                                 mysql_db
+
+$ docker run -d -p 127.0.0.1:8080:5000/udp training/webapp python app.py      ----------------->>>>>>>>>>> to work with telecom protocol
+03248001f24e5d3c20a2a74dc8b63d551845e0eb4496d69b357902c7d1f1a101
+
+$ docker ps
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS                         PORTS                                         NAMES
+03248001f24e   training/webapp   "python app.py"          21 seconds ago   Up 6 seconds                   5000/tcp, 127.0.0.1:8080->5000/udp            distracted_kepler
+4982a7e2a79f   training/webapp   "python app.py"          2 minutes ago    Up 2 minutes                   127.0.0.1:8080->5000/tcp                      wonderful_davinci
+82696a5896b9   training/webapp   "python app.py"          8 minutes ago    Up 7 minutes                   0.0.0.0:8000->5000/tcp, :::8000->5000/tcp     trusting_chandrasekhar
+dc25fa210b67   training/webapp   "python app.py"          12 minutes ago   Up 12 minutes                  0.0.0.0:49156->5000/tcp, :::49156->5000/tcp   nice_austin
+d6c734eb0c95   training/webapp   "python app.py"          13 minutes ago   Up 13 minutes                  0.0.0.0:49155->5000/tcp, :::49155->5000/tcp   interesting_williamson
+f767649ef30f   training/webapp   "python app.py"          13 minutes ago   Up 13 minutes                  0.0.0.0:49154->5000/tcp, :::49154->5000/tcp   eager_jang
+c73813e0b00a   training/webapp   "python app.py"          13 minutes ago   Up 13 minutes                  0.0.0.0:49153->5000/tcp, :::49153->5000/tcp   amazing_diffie
+4d35b0dfa400   apache            "apachectl -D FOREGR…"   4 days ago       Up 33 minutes                  0.0.0.0:9090->80/tcp, :::9090->80/tcp         apache_web
+ad4c76a9e0e0   mysql             "docker-entrypoint.s…"   4 days ago       Restarting (1) 9 seconds ago                                                 mysql_db
+
+
+connect with linking system 
+
+$ docker inspect -f "{{ /Hostconfig.Links }}"web1 -------------->>>>>>> inspect your linked containers with docker inspect
+
+$ docker run -d --name web training/webapp python app.py
+e12b2e9b8a7230de1569467a46d32cece1ec3ad20bd66786e11e177859fddaf6
+
+
+$ docker run -d --name db training/postgres
+Unable to find image 'training/postgres:latest' locally
+latest: Pulling from training/postgres
+Image docker.io/training/postgres:latest uses outdated schema1 manifest format. Please upgrade to a schema2 image for better future compatibility. More information at https://docs.docker.com/registry/spec/deprecated-schema-v1/
+a3ed95caeb02: Pull complete
+6e71c809542e: Pull complete
+2978d9af87ba: Pull complete
+e1bca35b062f: Pull complete
+500b6decf741: Pull complete
+74b14ef2151f: Pull complete
+7afd5ed3826e: Pull complete
+3c69bb244f5e: Pull complete
+d86f9ec5aedf: Pull complete
+010fabf20157: Pull complete
+Digest: sha256:a945dc6dcfbc8d009c3d972931608344b76c2870ce796da00a827bd50791907e
+Status: Downloaded newer image for training/postgres:latest
+76f74422cb0fb168ff338f22344937bb8ac611651130d74b06cb7c4a4750497a
+
+aran@Aran:~/devops/10-feb-2023/1sthour$ docker run -d -P --name web1 --link db:db training/webapp python app.py
+39d77037c7400970fee3e4fc2d601d66b2b52b587be535b9d99049827673124d
+
+$ docker inspect -f "{{ .HostConfig.Links }}" web1
+[/db:/web1/db]

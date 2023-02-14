@@ -1,0 +1,56 @@
+==================================================================================================
+--------------------------------------------------------------------------------------------------
+10-february-2023
+-----------------------------------------------------------------------------------------------
+==============================================================================================
+-----------------------------------------------------------------------------------------------
+
+
+***Do run Docker-compose up and the check network***
+
+
+aran@Aran:~/devops/10-feb-2023$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+53320ed7195a   bridge    bridge    local
+d183ccb3e2a1   host      host      local
+6c8c582e2912   none      null      local
+
+
+$ docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "53320ed7195a5b89cb5907a9c4bce49a28701ff0c856d52e672d39880c3a4b1e",
+        "Created": "2023-02-10T10:54:16.74601442+05:30",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
