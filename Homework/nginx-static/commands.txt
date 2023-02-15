@@ -1,0 +1,75 @@
+--------------------------------------------------------------------------------------------------
+==================================================================================================
+--------------------------------------------------------------------------------------------------
+create a docker-compose file for web server nginx and assign static ip
+-----------------------------------------------------------------------------------------------
+==============================================================================================
+-----------------------------------------------------------------------------------------------
+
+create a docker-compose file 
+
+version: "3"
+services:
+  web:
+    image: nginx
+    build: ./webapp
+    container_name: nginx_web
+    restart: always
+
+let you container be running because docker network connects by interpreting through running containers
+
+check your ip by running docker inspect <container_name>
+
+c$ docker images
+REPOSITORY          TAG       IMAGE ID       CREATED         SIZE
+nginx               latest    5319fb969c56   3 hours ago     175MB
+nginx-static        1.9       819e33bf7102   3 hours ago     175MB
+
+
+$ docker network connect --ip 172.20.0.2 static-ip nginx_web
+
+$ docker network ls
+NETWORK ID     NAME                  DRIVER    SCOPE
+9ab9b4078a5d   bridge                bridge    local
+d183ccb3e2a1   host                  host      local
+9b93e76a0a81   nginxstatic_default   bridge    local
+6c8c582e2912   none                  null      local
+b252815e8860   static-ip             bridge    local
+
+~$ docker start nginx_web
+
+$ docker inspect nginx_web
+
+"static-ip": {
+                    "IPAMConfig": {
+                        "IPv4Address": "172.20.0.2"
+                    },
+                    "Links": null,
+                    "Aliases": [
+                        "b5e45e9d4533"
+                    ],
+                    "NetworkID": "",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "",
+                    "DriverOpts": {}
+                }
+            }
+        }
+    }
+]
+
+$ dokcer-compose build 
+
+$ docker-compose up
+
+
+
+
+
+

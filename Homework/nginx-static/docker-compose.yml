@@ -1,0 +1,7 @@
+version: "3"
+services:
+  web:
+    image: nginx
+    build: ./webapp
+    container_name: nginx_web
+    restart: always
