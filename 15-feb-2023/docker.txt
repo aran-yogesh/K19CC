@@ -1,0 +1,44 @@
+==================================================================================================
+--------------------------------------------------------------------------------------------------
+15-february-2023
+-----------------------------------------------------------------------------------------------
+==============================================================================================
+-----------------------------------------------------------------------------------------------
+
+
+manage data in docker 
+
+$ docker volume create key
+key
+aran@Aran:~/devops/practice/springboot/java-app$ docker volume ls
+DRIVER    VOLUME NAME
+local     3e581648edde3c7bdd53152b4c281da7c5fec9cf6696f36a3ac33e51bca290f8
+local     063b0a029faeb501b416b056e8c0ae5c7d7d1e7274e5de1ec3f465cc810f4bcb
+local     819c5d8434c08280f8f033e0611dd91c4dab479696f0ad0830d91db4cb4c2f0e
+local     c958b310021ef7a28fdb3312c1698eb6d68e63d0f92873c85e70b156a9281368
+local     d0c71eca8873236016d98261eb2f90afe87a3bf8905c9bdd28636157b8ffdc52
+local     db72a8da0219508a9167a2c780d595ddc65974c9e8aa450f0b72b7cba6d2fd5c
+local     e1953d6762b07cc121932c718581a27308863d46f9b8e6e006b41eee445d8d18
+local     f6b63275f8b2cb2be172ab735229e2259641a84788fd60a7393cdd1def397e65
+local     key
+
+$ docker volume prune
+WARNING! This will remove all local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Deleted Volumes:
+3e581648edde3c7bdd53152b4c281da7c5fec9cf6696f36a3ac33e51bca290f8
+819c5d8434c08280f8f033e0611dd91c4dab479696f0ad0830d91db4cb4c2f0e
+c958b310021ef7a28fdb3312c1698eb6d68e63d0f92873c85e70b156a9281368
+e1953d6762b07cc121932c718581a27308863d46f9b8e6e006b41eee445d8d18
+063b0a029faeb501b416b056e8c0ae5c7d7d1e7274e5de1ec3f465cc810f4bcb
+d0c71eca8873236016d98261eb2f90afe87a3bf8905c9bdd28636157b8ffdc52
+db72a8da0219508a9167a2c780d595ddc65974c9e8aa450f0b72b7cba6d2fd5c
+f6b63275f8b2cb2be172ab735229e2259641a84788fd60a7393cdd1def397e65
+key
+
+Total reclaimed space: 595.7MB
+
+$ docker volume ls
+DRIVER    VOLUME NAME
+
+
