@@ -1,0 +1,64 @@
+What is AWS?
+ Amazon web services.
+ It is a cloud service from amazon, which provides services in the form of uilding blocks, these building blocks 
+are used to create, deploy of an appliction.
+Services provided by AWS:
+1)compute
+2) storage 
+3) database 
+4) migration - Database migration service, Snowball.
+5) network and content delivery - Route 53, CloudFront.
+6) management tools - CLoudWatc, CloudFormation, CloudTrail.
+7) security and identity compliace - IAM, KMS, Shield.
+8) messaging - SQS, SNS, SES, Pinpoint.
+
+ Launched in 2002.
+ First service SQS in 2004.
+ Relaunch with amazon EC2 instance.
+ Virtual private cloud in 2009
+ First AWS customer event in 2012.
+
+Compute services:
+Includes services related to compute workloads.
+EC2, Lambda, Elastic beanstalk, Amazon lightsail.
+
+Storage services:
+Includes services realted data storage.
+Se, Elastic block store, amazon glacier.
+
+AWS Account management
+=======================
+
+AWS account is a fundamental part of acessing a aws services
+
+AWS account serves two basic functions:
+
+Container: An AWS account is the basic container for all AWS resources you create as
+an AWS customer
+
+for ex: AWS S3
+
+Security boundary: an AWS account is also the basic security boundary for your aws resources
+resources that create in your acc are available to user who credentials for your account
+
+AWS IAM identity Center (successor to AWS Single sign-on)
+
+AWS Account id :
+===============
+its of 12 digit number that identifies AWS Account 
+
+Canonical user ID:
+=================
+it ALpha numeric ID AWS account when cross account access its used 
+
+
+we can find AWS and Canonical user id under username --> Security credentials : ID no and Canonical ID
+
+AWS Budgets:
+============= 
+
+applying limitation of the budget at the time of using 
+
+AWS budgets ---> create a budget ---> get alert --> respond with actions 
+
+

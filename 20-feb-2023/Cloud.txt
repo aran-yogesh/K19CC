@@ -1,0 +1,38 @@
+Cloud Computing:
+-> Three types of cloud - Public, Private and Hybrid.
+-> The cloud is a large group of interconnected computers. We usually use the symbol of cloud to denote the complicated 
+networks in circuit.
+-> Key properties of cloud computing:
+1) User centric:
+This means once a user is connected to cloud any data there, such as images, videos, applications, becomes his property.
+2) Task centric:
+CLoud computing focus on what one need an how application can do it for us. Here document are given more priority
+than the applications which createthem.
+3) Powerful:
+Powerful in the sense that as there is large computers more computing power and mass data storage possible.
+4) Self healing:
+Because hot backups are available for every document in the cloud. Hence if one document crashes there will be duplicate ready to run.
+5) Multi tenancy:
+Refers to sharing data and costs across a large pool of users.
+6) Programmable:
+Many process in cloud computing shall be automate such as backing up crashed data with its duplicate.
+7) FLexible:
+As the users may be of different varieties and hance it has to match with their needs.
+
+Benefits of cloud computing:
+
+1) Reduces run time and response time:
+As there is large computing capability run time and response time get reduced.
+2) Minimize infrastructure ris:
+Ad there is service providers to provide necessary infrastructure and services infrastructure risk get reduced.
+we need not to purchase infrastructure.
+3) Low cost entry:
+For new organoztions the infrastructure and services can be rented and this reduces their cost of entry into the market.
+4)Increased pace of innovation:
+5) COst consious users are satisfied:
+
+Cloud computing services:
+1) Amazon web services.
+2) Google App Engine.
+
+
