@@ -1,0 +1,6 @@
+1. create IAM users DEV_1 DEV_2 SEC_1 SEC_2 ---->>> Attach the policy 
+                    ----------- ===========
+                         |           |
+
+                       group1     group2
+
