@@ -1,0 +1,107 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+21-february-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+
+AWS IAM (identity access management)
+====================================
+
+Accounts -->> IAM User and Role Access to Billing Information
+
+[o] activate IAM access
+
+working of IAM
+==============
+
+1. Principle
+2. authentication
+3. request
+4. Authorization
+5. Actions
+6. Resources
+
+Components of IAM users
+=======================
+
+the root user of an AWS acc is not the same as an IAM user with administrator access
+
+AWS account (IAM user) ----IAM user
+   \
+    \
+     \
+       AWS services
+steps:
+=======
+
+
+
+components of IAM groups
+========================
+
+A set of IAM users is referred to as an IAM user Group
+
+User group cant be designed as principal. A user group is a technique to apply policies to a group of people all at once
+
+user group allow you to specify premission for many user,making it easier to manage those users
+
+
+Components of IAM roles
+=========================
+
+An IAM role like an IAN user is an aws identity with permission policies that govern what the identity can and cannot do in AWS
+
+
+Create a two groups includeing 2 developer and 2 securities add s3 role and attach policies and run ec2 instances
+
+install aws cli and configure
+
+with dev_1 
+
+$ aws --version
+aws-cli/1.18.69 Python/3.6.9 Linux/5.15.79.1-microsoft-standard-WSL2 botocore/1.16.19
+
+$ aws configure
+AWS Access Key ID [None]: AKIAZ3UWTT733JJFJ6MR
+AWS Secret Access Key [None]:
+YZ5l2Default region name [None]: ap-south-1
+Default output format [None]: json
+
+$ aws ec2 describe-instances
+reboot-instances                         | register-image
+register-instance-event-notification-attributes | register-transit-gateway-multicast-group-members
+register-transit-gateway-multicast-group-sources | reject-transit-gateway-peering-attachment
+reject-transit-gateway-vpc-attachment    | reject-vpc-endpoint-connections
+reject-vpc-peering-connection            | release-address
+release-hosts                            | replace-iam-instance-profile-association
+replace-network-acl-association          | replace-network-acl-entry
+replace-route                            | replace-route-table-association
+replace-transit-gateway-route            | report-instance-status
+request-spot-fleet                       | request-spot-instances
+reset-ebs-default-kms-key-id             | reset-fpga-image-attribute
+reset-image-attribute                    | reset-instance-attribute
+reset-network-interface-attribute        | reset-snapshot-attribute
+restore-address-to-classic               | revoke-client-vpn-ingress
+revoke-security-group-egress             | revoke-security-group-ingress
+run-instances                            | run-scheduled-instances
+search-local-gateway-routes              | search-transit-gateway-multicast-groups
+search-transit-gateway-routes            | send-diagnostic-interrupt
+start-instances                          | start-vpc-endpoint-service-private-dns-verification
+stop-instances                           | terminate-client-vpn-connections
+terminate-instances                      | unassign-ipv6-addresses
+unassign-private-ip-addresses            | unmonitor-instances
+update-security-group-rule-descriptions-egress | update-security-group-rule-descriptions-ingress
+withdraw-byoip-cidr                      | wait
+help
+
+$ aws ec2 describe-instances
+
+Invalid IPv6 URL
+
+$ aws iam create-access-key --username Dev_1 
+
+$ aws ec2 describe-instances
+
+
