@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+22-february-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+
+
+public vs private services:
+==========================
+
+public services are accessible to anyone who has internet
+private services are under virtual private network and are not accessible to everyone
+
+
+Global infrastructure:
+======================
+
+AWS cloud infrastructure is built around aws regions and availabalilty Zones
+An aws region is physical location in the world
+availabilty zones consist of data centers
+
+
+Global Components are:
+===================
+availabilty zone (AZs) : Availability Zones are distinct locations within an AWS Region that are engineered to be isolated from failures in other Availability Zones
+regions : A region is a specific geographical location where you can run your resources
+edge locations : Edge locations are AWS data centers designed to deliver services with the lowest latency possible.
+regional edge caches : its used in between region and edge locations during low latency 
+
+
+Global and reginal AWS architecture:
+===================================
+
+global service location and discovery
+Content Delivery and optimization
+global health check and failover
+regional entry point
+scaling and resilience
+application service and components
+
+Anatimy of AWS:
+===================
+
+Availabilty zone
+fully isolated infrastructre 
+meanniingfull sitance seperation
+unique power infrastructure
+100k of servers at scale
+infra structure are connected with metro fibre
+
+
+logically isolated network in the AWS cloud that you control
+
+AWS refrence model
+
+why use VPC?
+
+Control of network architecture
+Further secure your resources
+Evolving EC2 feature set
+Enables Hybrid cloud architectures
+privately internetwork with other organizations
+intelligent address increasing infrastructure demands
+
