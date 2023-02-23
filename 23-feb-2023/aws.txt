@@ -1,0 +1,58 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+23-february-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+
+Amazon EC2 (elastic compute cloud)
+====================================
+
+Elastic cloud compute provides resizable compute capacity in the cloud
+
+AN instance is virtual server for running applications on amazon ec2
+
+ec2 provides scalable computing capacity in AWS cloud
+
+using ec2 eliminates your need to invest hardware upfron so you can develop and deploy applications faster
+
+features
+=========
+
+instances
+AMI (amazon machine images) -> the os images available to setup during the instances
+instace type -- CPU memory storage and networking capacity 
+key pairs == secure login information for your instaces 
+storage volumes for temporary data thats deleted when you terminate the instances
+Multiple physical locations for your resource such as instance and amazon ebs known as region and availabiltiy zones
+A firewall that enables you to specify the protocols ports and source ip ranges tjay can reach your instances using decurity groups 
+static ipv4 address foryy dynamic
+
+the instance is amazon EBS-backed instance
+
+EC2 options 
+=======
+On demand : fixed rates
+REserved
+Spot
+Dedicated host
+
+EC2 Security Group Basics
+==========================
+
+security group is like a firewall
+ingress(inbound) and egress(outbound)
+
+Security groups
+===============
+by default everything in AWS is private
+if we do not allow a particular protocol no one will be able to access our instance using that protocol
+Any rule edit on security group have immdeiate effect
+
+
+
+sudo ss -lntp
+
+
+
