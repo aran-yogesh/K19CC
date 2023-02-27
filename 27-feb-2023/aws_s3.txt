@@ -1,0 +1,118 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+27-february-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+
+AWS s3 CLI 
+==========
+
+$ aws configure
+AWS Access Key ID [****************J6MR]: AKIAZ3UWTT733JJFJ6MR
+AWS Secret Access Key [****************A5DX]: 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
+Default region name [Global]: us-east-1
+Default output format [json]:
+
+$ aws s3 ls
+2023-02-27 10:16:29 aransbucket
+
+$ aws s3 ls s3://aransbucket
+2023-02-27 10:17:09      14523 AWS.txt
+
+
+AWS static website hosting
+==========================
+Step 1: Create a bucket
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step1-create-bucket-config-as-website
+
+Step 2: Enable static website hosting
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step2-create-bucket-config-as-website
+
+Step 3: Edit Block Public Access settings
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step3-edit-block-public-access
+
+Step 4: Add a bucket policy that makes your bucket content publicly available
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step4-add-bucket-policy-make-content-public
+
+Step 5: Configure an index document
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step5-upload-index-doc
+
+Step 6: Configure an error document
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step6-upload-error-doc
+
+Step 7: Test your website endpoint
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step7-test-web-site
+
+Step 8: Clean up
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#getting-started-cleanup-s3-website-overview
+
+
+
+bucket policy
+=============
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::webs-buck/*"
+        }
+    ]
+}
+
+static website actions
+-----------------------
+
+this is the policy action added to the website
+"Sid": "PublicReadGetObject"
+"Action": "s3:GetObject",
+
+----------------------------------------------------------
+
+bucket policy command in aws cli
+================================
+
+$ aws s3api get-bucket-policy --bucket webs-buck
+{
+    "Policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"PublicReadGetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"s3:GetObject\",\"Resource\":\"arn:aws:s3:::webs-buck/*\"}]}"
+}
+
+
+
+--------------------------------------------------
+
+AWS Security Token Service API Reference
+============================================
+
+$ aws sts get-caller-identity
+{
+    "UserId": "7S3",
+    "Account": "879",
+    "Arn": "arn:aws:iam::79:user/Dev_1"
+}
+
+S3 we use for updating and deleting purpose
+s3api is used for advance purposes
+
+$ aws s3api list-buckets --query "Buckets[].Name"
+[
+    "aransbucket",
+    "webs-buck"
+]
+
+$ aws s3api put-bucket-acl --bucket webs-buck --grant-full-control emailaddress=yogeshmahe04@gmail.com, --grant-read uri=http"//acs.amazonaws.com/groups/global/ALLUsers
+
