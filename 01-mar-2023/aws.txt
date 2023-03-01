@@ -1,0 +1,159 @@
+
+
+
+Replication object
+
+
+You can replicate objects to a single destination bucket or to multiple destination buckets
+The destination buckets can be in different AWS Regions or within the same Region as the source bucket
+
+Why use replication
+------------------
+
+Replicate objects while retaining metadata
+Replicate objects into different storage classes
+Maintain object copies under different ownership
+Keep objects stored over multiple AWS Regions 
+replicate objects within 15 mins
+sync bucket, replicate existing objects, and replicate previously failed or replicated objects
+Replicate objects and fail over to a bucket in another AWS Region
+
+When to use Cross-Region Replication
+------------------------------------
+
+S3 Cross-Region Replication (CRR) is used to copy objects across Amazon S3 buckets in different AWS Regions. CRR can help you do the following
+
+Meet compliance requirements – Although Amazon S3 stores your data across multiple geographically distant Availability Zones by default, 
+compliance requirements might dictate that you store data at even greater distances.
+
+Minimize latency – If your customers are in two geographic locations, you can minimize latency in accessing objects by maintaining object
+copies in AWS Regions that are geographically closer to your users.
+
+
+replicating object policy 
+--------------------------
+
+"Action": [
+                "s3:ReplicateObject",
+                "s3:ReplicateDelete",
+                "s3:ReplicateTags",
+                "s3:ObjectOwnerOverrideToBucketOwner"
+            ],
+
+
+
+Steps to create a replicating object from source bucket to destination bucket 
+====================================================================================
+
+create source bucket and desitination bucket
+ACl enabled
+SSE key
+bucket versioning enabled 
+
+and open the source bucket and goto managemnet
+goto replicating object and select destination file And save changes 
+
+----------------------------------------------------------------------------------------------
+
+S3 cli
+======
+
+$ aws s3api get-bucket-replication --bucket 010323-sour
+{
+    "ReplicationConfiguration": {
+        "Role": "arn:aws:iam::677846949879:role/service-role/s3crr_role_for_010323-sour",
+        "Rules": [
+            {
+                "ID": "replication",
+                "Priority": 0,
+                "Filter": {},
+                "Status": "Enabled",
+                "SourceSelectionCriteria": {},
+                "Destination": {
+                    "Bucket": "arn:aws:s3:::010323-replica",
+                    "ReplicationTime": {
+                        "Status": "Enabled",
+                        "Time": {
+                            "Minutes": 15
+                        }
+                    },
+                    "Metrics": {
+                        "Status": "Enabled",
+                        "EventThreshold": {
+                            "Minutes": 15
+                        }
+                    }
+                },
+                "DeleteMarkerReplication": {
+                    "Status": "Enabled"
+                }
+            }
+        ]
+    }
+}
+
+
+The maximum character size limit for managed policies is 6,144.
+
+------------------------------------------------------------------------------------------------------------
+
+Amazon S3 Select
+=================
+
+
+amazon s3 select and aazon s3 glacier
+------------------------------------
+
+Amazon S3 Glacier (S3 Glacier) is a secure and durable service for low-cost data archiving and long-term backup.
+
+on s3 glacier 
+store data cost effectively 
+
+storage classes
+-----------------
+
+S3 Glacier Instant Retrieval 
+S3 Glacier Flexible Retrieval
+S3 Glacier Deep Archive 
+
+
+Glacier select is generallly available in all commercial region that have glacier
+
+Glacier is price in 3 dimensions
+---------------------------------
+
+GB od data scanned
+GB of data returned 
+select requests
+
+Amazon S3 select 
+
+create a .cse file with id name and section columns thaqt will be vdrasion one and 
+second version of the file will only contain id name only 
+then click the files goto actions query with s3 select
+
+run sql command
+----------------
+SELECT * FROM s3object s LIMIT 5
+
+id,name 
+1,AAA
+2,BBB
+3,CCC
+4,DDD
+
+SELECT s._1 FROM s3object s LIMIT 5
+
+id
+1
+2
+3
+4
+
+SELECT s._2 FROM s3object s LIMIT 5
+
+name 
+AAA
+BBB
+CCC
+DDD
