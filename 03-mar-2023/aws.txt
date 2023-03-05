@@ -1,0 +1,140 @@
+presigned url 
+================
+
+all objects and buckets are private by default.
+you can use presigned url to share access to object
+if you want to restrict the use fi  
+
+aws cli
+
+
+$ aws s3 presign s3://bucketname/ibjectname
+
+
+$ aws configure
+AWS Access Key ID [****************D43B]: AKIAZ3UWTT73VS54D43B
+AWS Secret Access Key [****************X8dV]: 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
+Default region name [ap-south-1]:
+Default output format [json]:
+aran@Aran:~$ aws s3 ls
+2023-03-01 11:25:33 010323-replica
+2023-03-01 11:30:47 010323-sour
+2023-03-01 11:56:37 010323-webdest
+2023-03-01 12:00:02 010323-websour
+2023-02-27 10:16:29 aransbucket
+2023-02-28 14:41:49 bu222
+2023-03-01 14:45:58 ffffgggg
+2023-02-28 14:22:21 mybucketttwithkms
+2023-03-01 15:26:08 oblock010323
+2023-03-03 11:22:49 ssss3333332
+2023-02-27 13:51:51 webs-buck
+aran@Aran:~$ aws s3 presign s3://ssss3333332/index.html
+https://ssss3333332.s3.amazonaws.com/index.html?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZ3UWTT73VS54D43B%2F20230303%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20230303T055529Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=675feced1e33cb1b9fdd0a0adec095401eb3d0d9287a30fd3ad9d1281392926f
+
+
+Sharing objects using presigned URLs
+-------------------------------------
+
+
+you use the AWS Cloud9 IDE, running in a web browser on your local computer, to interact with your AWS Cloud9 environment. A computing resource (for example, an Amazon EC2 instance or your own server) connects to that environment. Finally, your work is stored in an AWS CodeCommit repository or other type of remote repository.
+
+
+AWS Cloud9 environments
+---------------------------
+Store your project's files locally on the instance or server.
+
+Clone a remote code repository—such as a repo in AWS CodeCommit—into your environment.
+
+Work with a combination of local and cloned files in the environment.
+
+Environments and computing resources
+--------------------------------------
+You can instruct AWS Cloud9 to create an Amazon EC2 instance, and then connect the environment to that newly created EC2 instance. This type of setup is called an EC2 environment.
+
+You can instruct AWS Cloud9 to connect an environment to an existing cloud compute instance or to your own server. This type of setup is called an SSH environment.
+
+What can I do with AWS Cloud9?
+----------------------------
+
+Working with code in several programming languages and the AWS Cloud Development Kit (AWS CDK).
+
+Working with code in a running Docker container.
+
+Using online code repositories.
+
+Collaborating with others in real time.
+
+Interacting with various database and website technologies.
+
+Targeting AWS Lambda, Amazon API Gateway, and AWS Serverless Applications.
+
+Taking advantage of other AWS products such as Amazon Lightsail, AWS CodeStar, and AWS CodePipeline.
+
+
+Cross origin resource sharing (CORS)
+=================================
+
+s3                                          S4
+index.html                               first.html
+
+http://s3bucket1.com
+http://s3bucket2.com
+
+
+Cross-origin resource sharing (CORS) defines a way for client web applications that are loaded in one domain to interact with
+resources in a different domain. With CORS support, you can build rich client-side web applications with Amazon S3 and 
+selectively allow cross-origin access to your Amazon S3 resources.
+
+How does Amazon S3 evaluate the CORS configuration on a bucket?
+
+When Amazon S3 receives a preflight request from a browser, it evaluates the CORS configuration for the bucket and uses the first CORSRule rule that matches the incoming browser request to enable a cross-origin request. For a rule to match, the following conditions must be met:
+
+The request's Origin header must match an AllowedOrigin element.
+
+The request method (for example, GET or PUT) or the Access-Control-Request-Method header in case of a preflight OPTIONS request must be one of the AllowedMethod elements.
+
+Every header listed in the request's Access-Control-Request-Headers header on the preflight request must match an AllowedHeader element.
+
+steps for cors 
+create 2 buckets
+add bucket policy for both buckets
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::Bucket-Name/*"
+            ]
+        }
+    ]
+}
+
+
+and upload .html files in both the buckets and add orign file http adrress in fetched file address
+
+and got to fetched file bucket cors policy and add the policy
+
+[
+    {
+        "AllowedHeaders": [
+        	"Authorization"
+        ],
+        "AllowedMethods": [
+        	"GET"
+        ],
+        "AllowedOrigins": [
+        	"UPDATE: http://www.myoriginbucket.com"
+        ],
+        "ExposeHeaders": []
+    }
+]
+
+
+
+
