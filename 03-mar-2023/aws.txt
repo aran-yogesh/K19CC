@@ -12,8 +12,8 @@ $ aws s3 presign s3://bucketname/ibjectname
 
 
 $ aws configure
-AWS Access Key ID [****************D43B]: AKIAZ3UWTT73VS54D43B
-AWS Secret Access Key [****************X8dV]: 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
+AWS Access Key ID [****************D43B]: 
+AWS Secret Access Key [****************X8dV]
 Default region name [ap-south-1]:
 Default output format [json]:
 aran@Aran:~$ aws s3 ls
