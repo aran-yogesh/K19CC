@@ -1,0 +1,87 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+09-march-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+
+
+amazon cloud watch
+amazon ec2 auto scaling enables u to automatically launch or terminate amazon ec2 instaces based on user defined polices,health status checks and schedules
+aws cloud trail enables you to monitor the calls made to the amazon cloud watch API for your acc including calls made by the aws managemnet console, AWS CLI and other services 
+when cloud ttrail loggin is turned on cloud watch writes log files to the amazon s3 buckete your AWS resources
+
+aws identity and access MANAGEME (iam) IS A web service that helps you securely control access to aws resource for your users. user IAM to control who can use
+
+
+
+
+amazon cloud watch --> collect --> Monitor --> Act --> Analyze  ---> | application monitoring
+
+
+
+aws cloud watch primarily performs the four actions
+---------------------------------------------------
+
+collect metrics and log
+monitor and visulaize the data
+act on an automated response to any changes
+analyse your metrics
+collect metrics and logs 
+---------------------------
+in the first step, cloud watch collects metrics 
+
+Monitor and visualize the data
+------------------------------
+
+Act on an automated response to any changes 
+--------------------------------------------
+
+analyse your matrics
+
+aws cloud computing resiurce are housed in higly available data center facilities
+to provide additional scalability
+
+cloud watch logs
+------------------
+
+system an customized log measurements
+pattern searching (pseudi , case sensitive, php -apache supprt)
+log groups
+graph based log filters
+alarm setting when metric crosses specific threshold
+log stream: data exchange channel between the log agent and aws
+log group: represent grouped log streams
+metric filter: assigned to group text pattern dynamically
+
+
+log events 
+-------------
+a log event is a record of some activity recorded by the application resource being noticed
+the log event 4record the cloud watch logs understand contains two properties: the timestamp of when the event occured and the raw event message
+
+log streams 
+----------
+is sequence of log events that share the same source more specifcally a log stream is generally intended to represented the sequence of events comming from the application instance or resources being emntioned
+
+log groups
+----------
+
+log groups define groups of log streams that 
+
+metric filter
+--------------
+
+you can use metric filters to extract metric observatons from ingested
+
+retention seetings
+--------------------
+
+retention settings can be used to specify how long events aree kept in cloud watch
+
+
+cloud watch for ec2
+------------------------
+ by deafult no logs are there ec2 machine
+you need o run cloud watch agent on ec2
