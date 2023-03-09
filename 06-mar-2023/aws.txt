@@ -1,0 +1,68 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+06-march-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+
+Logging requests using server access logging
+----------------------------------------------
+
+Server access logging provides detailed records for the requests that are made to a bucket. Server access logs are useful for many applications. For example, access log information can be useful in security and access audits. It can also help you learn about your customer base and understand your Amazon S3 bill.
+
+
+steps to logg request server access logging
+----------------------------------------------
+
+Sign in to the AWS Management Console and open the Amazon S3 console at https://console.aws.amazon.com/s3/.
+
+In the Buckets list, choose the name of the bucket that you want to enable server access logging for.
+
+Choose Properties.
+
+In the Server access logging section, choose Edit.
+
+Under Server access logging, select Enable.
+
+For Target bucket, enter the name of the bucket that you want to receive the log record objects.
+
+
+bucket policy
+================
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "S3ServerAccessLogsPolicy",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "logging.s3.amazonaws.com"
+            },
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::DOC-EXAMPLE-BUCKET/EXAMPLE-LOGGING-PREFIX*",
+            "Condition": {
+                "ArnLike": {
+                    "aws:SourceArn": "arn:aws:s3:::SOURCE-BUCKET-NAME"
+                },
+                "StringEquals": {
+                    "aws:SourceAccount": "SOURCE-ACCOUNT-ID"
+                }
+            }
+        }
+    ]
+}
+
+
+The target bucket must be in the same Region as the source bucket and must not have a default retention period configuration.
+
+Choose Save changes.
+
+
+Access points
+-------------
+
+

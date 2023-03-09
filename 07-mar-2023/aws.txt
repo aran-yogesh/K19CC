@@ -1,0 +1,77 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+07-march-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+
+S3 inventory 
+-------------
+
+is one ofthe tools amazon s3 provides to hrlp manage ur storage
+
+you can use it to audfit and report on the replication and encrypton status of ur business \, compliances and regulatory needs
+
+you can also simplify and speed up business workflows and big data jobs
+
+amazon inventory provides csv , orc parquet output files that list yur objects and theri corresponding meta data on daily or weekly basis for s3 bucket or a dhared prefix
+
+you can configure multiple inventory list for the bucket
+
+source bucket
+---------------
+
+the inventory list the objects t
+at ar stored in the source bucket 
+
+
+destinaion bucket
+------------------
+amazon s3 inventory list files are wriiten the destination bucket
+the desitinatin bucket
+conatains the inventory files list
+
+Amazon s3 event notifications 
+================================
+
+you cab use the amamzib s3 event notification feature to recieve notification when certain events happen in your s3 bucket 
+to enable notification add a notification configuration that identifies the events that you want amazon s3 to publisg
+
+currently amazon s3 can publish notification for the following events:
+
+new object created events 
+object removal events 
+s3 lifecylce events
+s3 lifecycle transition events
+s3 intelligent tiering automatic archive evenets
+object tagging events 
+object ACL PUT events
+
+amazon s3 can send event notfication messages to following destinations. you specify the amazon resource (ARN)
+
+amazon s3 supports several event notfication types and destination where the notification can be published you can specify the event type and destination 
+
+CloudWatch
+==========
+
+cloud watch is used for monitoring services
+Amazon CloudWatch is basically a metrics repository. An AWS service—such as Amazon EC2—puts metrics into the repository, and you retrieve statistics based on those metrics. If you put your own custom metrics into the repository, you can retrieve statistics on these metrics as well.
+
+you can create alarms the resource you are monitoring when threshold is breached
+you can monitor cpu usage and disk read anf write your amazon ec2 instabces and then use that data to determie whether you should launch additional instances to handle increased load.
+you can also use this data to stop under-used instances to save money
+
+
+additionally cloudwatch can also be used to :
+Detect any anomaly 
+
+in your cloud environment
+creater custom
+
+to access cloud watch :
+
+cloudwatch conlose
+aws cli 
+cloud watch
+aws sdk
