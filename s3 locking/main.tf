@@ -1,0 +1,17 @@
+provider "aws" {
+
+    access_key = ""
+    secret_key = ""
+    region = "us-east-1"
+  
+}
+
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "11903273"
+  acl    = "private"
+
+  versioning {
+    enabled = true
+  }
+}
+
