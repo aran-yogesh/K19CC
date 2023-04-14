@@ -30,7 +30,7 @@ resource "aws_lb" "web_alb" {
 
 resource "aws_launch_configuration" "web_lc" {
   name                 = "11903273"
-  image_id             = "ami-0c55b159cbfafe1f0"
+  image_id             = ""
   instance_type        = "t2.micro"
   security_groups      = [aws_security_group.web_sg.id]
   associate_public_ip_address = true
@@ -62,7 +62,7 @@ resource "aws_security_group" "web_sg" {
 
 
 resource "aws_route53_record" "web_record" {
-  zone_id = "Z07630983N55A12B10CDE"
+  zone_id = "E"
   name    = "11903273.com"
   type    = "A"
 
