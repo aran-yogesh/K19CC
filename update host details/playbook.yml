@@ -1,0 +1,5 @@
+- name: Update host details
+  hosts: Aran_yogesh
+  tasks:
+    - name: Update host details
+      command: echo "This is a new host"
