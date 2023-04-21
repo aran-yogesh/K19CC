@@ -1,0 +1,19 @@
+---
+- name: CA3
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: ca3
+      amazon.aws.ec2.instance:
+        aws_access_key: AKIAZ3UWTT732R7XUI44
+        aws_secret_key: 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
+        key_name: Ca3
+        instance_type: t2.micro
+        image_id: ami-02396cdd13e9a1257
+        region: us-east-1
+        security_group: default
+        name: Ca3
+        wait: true
+      register: ec2
+      

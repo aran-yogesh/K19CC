@@ -1,0 +1,12 @@
+cidr_block="10.0.0.0/16"
+cidr_2 = "10.0.0.0/24"
+port = 80
+ami = "ami-07d3a50bd29811cd1"
+instance_type = "t2.micro"
+protocol = "http"
+igw_name = "Ca3"
+ec2_name = "CA3"
+vpc_name = "CA3"
+sg_name = "CA3"
+sb_name = "CA3"
+elb_name = "CA3"
