@@ -1,0 +1,18 @@
+---
+- name: Create EC2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Launch EC2 Instance
+      amazon.aws.ec2_instance:
+        aws_access_key: 
+        aws_secret_key: 
+        key_name: id_rsa
+        instance_type: t2.micro
+        image_id: ami-07d3a50bd29811cd1
+        region: ap-south-1
+        security_group: default
+        name: Ansible-11903273
+        wait: true
+      register: ec2
