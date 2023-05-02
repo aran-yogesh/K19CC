@@ -1,0 +1,413 @@
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+28-february-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+
+Protecting data using encryption
+--------------------------------
+
+amazon s3 
+datat protection refers to protecting data while in transit and at rest. Yoiu can protect data in transit by using Secure Sockert layer/Transport Layer Security(SSl/TLS) or client side encryption.
+
+
+server side encryption
+------------------------
+
+amazon s3 encrypts your  object before saving them on disk in AWS data centers and the decrypts the object when you download them.
+All amazon s3 buckets have encryption configured by default and all new objects uploaded to an s3 bucket are automatically encrypted at rest 
+
+client side encryption 
+-------------------------
+
+You encrypt your data client side and uplodad the encrypt data to amazon S3.
+
+AWS key manangement service
+---------------------------
+
+a amamnagemd service that enables you to easiky encrypt your data KMS provide a highly available key storage , management and auditing solution for you
+ro encrypt dara within yourt own application and control
+
+
+We applied on customer managed keys
+              ---------------------
+
+
+KMS key policy 
+---------------
+
+{
+    "Id": "key-consolepolicy-3",
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::677846949879:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Allow access for Key Administrators",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::677846949879:role/s3_role",
+                    "arn:aws:iam::677846949879:user/Sec_1",
+                    "arn:aws:iam::677846949879:user/Dev_1"
+                ]
+            },
+            "Action": [
+                "kms:Create*",
+                "kms:Describe*",
+                "kms:Enable*",
+                "kms:List*",
+                "kms:Put*",
+                "kms:Update*",
+                "kms:Revoke*",
+                "kms:Disable*",
+                "kms:Get*",
+                "kms:Delete*",
+                "kms:TagResource",
+                "kms:UntagResource",
+                "kms:ScheduleKeyDeletion",
+                "kms:CancelKeyDeletion"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+
+$ aws kms list-keys
+{
+    "Keys": [
+        {
+            "KeyId": "e1149901-adfe-4c91-be6e-f2e435718337",       -------------->>>> keyid
+            "KeyArn": "arn:aws:kms:us-east-1:677846949879:key/e1149901-adfe-4c91-be6e-f2e435718337"
+        }
+    ]
+}
+
+$ aws kms describe-key --key-id e1149901-adfe-4c91-be6e-f2e435718337
+{
+    "KeyMetadata": {
+        "AWSAccountId": "677846949879",
+        "KeyId": "e1149901-adfe-4c91-be6e-f2e435718337",
+        "Arn": "arn:aws:kms:us-east-1:677846949879:key/e1149901-adfe-4c91-be6e-f2e435718337",
+        "CreationDate": 1677564157.134,
+        "Enabled": true,
+        "Description": "key management system",
+        "KeyUsage": "ENCRYPT_DECRYPT",
+        "KeyState": "Enabled",
+        "Origin": "AWS_KMS",
+        "KeyManager": "CUSTOMER",
+        "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
+        "EncryptionAlgorithms": [
+            "SYMMETRIC_DEFAULT"
+        ]
+    }
+}
+
+
+$ aws kms get-key-policy --key-id e1149901-adfe-4c91-be6e-f2e435718337 --policy-name default
+{
+    "Policy": "{\n  \"Version\" : \"2012-10-17\",\n  \"Id\" : \"key-consolepolicy-3\",\n  \"Statement\" : [ {\n    \"Sid\" : \"Enable IAM User Permissions\",\n    \"Effect\" : \"Allow\",\n    \"Principal\" : {\n      \"AWS\" : \"arn:aws:iam::677846949879:root\"\n    },\n    \"Action\" : \"kms:*\",\n    \"Resource\" : \"*\"\n  }, {\n    \"Sid\" : \"Allow access for Key Administrators\",\n    \"Effect\" : \"Allow\",\n    \"Principal\" : {\n      \"AWS\" : [ \"arn:aws:iam::677846949879:user/Dev_1\", \"arn:aws:iam::677846949879:user/Sec_1\", \"arn:aws:iam::677846949879:role/s3_role\" ]\n    },\n    \"Action\" : [ \"kms:Create*\", \"kms:Describe*\", \"kms:Enable*\", \"kms:List*\", \"kms:Put*\", \"kms:Update*\", \"kms:Revoke*\", \"kms:Disable*\", \"kms:Get*\", \"kms:Delete*\", \"kms:TagResource\", \"kms:UntagResource\", \"kms:ScheduleKeyDeletion\", \"kms:CancelKeyDeletion\" ],\n    \"Resource\" : \"*\"\n  } ]\n}"
+}
+
+
+
+KMS is integrated with cloud trail whic provides you the ability to audit 
+to help ensure your keys and your data is highlyu avaoilable KMS stores multiple copies of encryptred
+
+
+$ aws kms list-aliases
+{
+    "Aliases": [
+        {
+            "AliasName": "alias/aws/dynamodb",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/dynamodb"
+        },
+        {
+            "AliasName": "alias/aws/ebs",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/ebs"
+        },
+        {
+            "AliasName": "alias/aws/elasticfilesystem",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/elasticfilesystem"
+        },
+        {
+            "AliasName": "alias/aws/es",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/es"
+        },
+        {
+            "AliasName": "alias/aws/glue",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/glue"
+        },
+        {
+            "AliasName": "alias/aws/kinesisvideo",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/kinesisvideo"
+        },
+        {
+            "AliasName": "alias/aws/rds",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/rds"
+        },
+        {
+            "AliasName": "alias/aws/redshift",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/redshift"
+        },
+        {
+            "AliasName": "alias/aws/redshifttest",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/redshifttest"
+        },
+        {
+            "AliasName": "alias/aws/s3",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/s3"
+        },
+        {
+            "AliasName": "alias/aws/ssm",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/ssm"
+        },
+        {
+            "AliasName": "alias/aws/xray",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/xray"
+        },
+        {
+            "AliasName": "alias/key",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/key",
+            "TargetKeyId": "e1149901-adfe-4c91-be6e-f2e435718337"
+        }
+    ]
+}
+
+
+Aws managed CMK
+------------------
+
+CMK in your account that are created managed and used in your behalf by an aws 
+
+AWS managed key vs customer managed key *google
+
+$ aws s3api put-object --bucket mybucketttwithkms --key 8.py --body 8.py
+.py
+$ aws s3api get-object --bucket bucketname --key 8.py p7.py
+
+
+How amazon Simple storage service(amazon S3) uses AWS KMS 
+---------------------------------------------------------
+
+$ aws s3 sync repo/ s3://
+
+
+
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+28-february-2023
+--------------------------------------------------------------------------------------------------------------
+==============================================================================================================
+
+Protecting data using encryption
+--------------------------------
+
+amazon s3 
+datat protection refers to protecting data while in transit and at rest. Yoiu can protect data in transit by using Secure Sockert layer/Transport Layer Security(SSl/TLS) or client side encryption.
+
+
+server side encryption
+------------------------
+
+amazon s3 encrypts your  object before saving them on disk in AWS data centers and the decrypts the object when you download them.
+All amazon s3 buckets have encryption configured by default and all new objects uploaded to an s3 bucket are automatically encrypted at rest 
+
+client side encryption 
+-------------------------
+
+You encrypt your data client side and uplodad the encrypt data to amazon S3.
+
+AWS key manangement service
+---------------------------
+
+a amamnagemd service that enables you to easiky encrypt your data KMS provide a highly available key storage , management and auditing solution for you
+ro encrypt dara within yourt own application and control
+
+
+We applied on customer managed keys
+              ---------------------
+
+
+KMS key policy 
+---------------
+
+{
+    "Id": "key-consolepolicy-3",
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::677846949879:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Allow access for Key Administrators",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::677846949879:role/s3_role",
+                    "arn:aws:iam::677846949879:user/Sec_1",
+                    "arn:aws:iam::677846949879:user/Dev_1"
+                ]
+            },
+            "Action": [
+                "kms:Create*",
+                "kms:Describe*",
+                "kms:Enable*",
+                "kms:List*",
+                "kms:Put*",
+                "kms:Update*",
+                "kms:Revoke*",
+                "kms:Disable*",
+                "kms:Get*",
+                "kms:Delete*",
+                "kms:TagResource",
+                "kms:UntagResource",
+                "kms:ScheduleKeyDeletion",
+                "kms:CancelKeyDeletion"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+
+$ aws kms list-keys
+{
+    "Keys": [
+        {
+            "KeyId": "e1149901-adfe-4c91-be6e-f2e435718337",       -------------->>>> keyid
+            "KeyArn": "arn:aws:kms:us-east-1:677846949879:key/e1149901-adfe-4c91-be6e-f2e435718337"
+        }
+    ]
+}
+
+$ aws kms describe-key --key-id e1149901-adfe-4c91-be6e-f2e435718337
+{
+    "KeyMetadata": {
+        "AWSAccountId": "677846949879",
+        "KeyId": "e1149901-adfe-4c91-be6e-f2e435718337",
+        "Arn": "arn:aws:kms:us-east-1:677846949879:key/e1149901-adfe-4c91-be6e-f2e435718337",
+        "CreationDate": 1677564157.134,
+        "Enabled": true,
+        "Description": "key management system",
+        "KeyUsage": "ENCRYPT_DECRYPT",
+        "KeyState": "Enabled",
+        "Origin": "AWS_KMS",
+        "KeyManager": "CUSTOMER",
+        "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
+        "EncryptionAlgorithms": [
+            "SYMMETRIC_DEFAULT"
+        ]
+    }
+}
+
+
+$ aws kms get-key-policy --key-id e1149901-adfe-4c91-be6e-f2e435718337 --policy-name default
+{
+    "Policy": "{\n  \"Version\" : \"2012-10-17\",\n  \"Id\" : \"key-consolepolicy-3\",\n  \"Statement\" : [ {\n    \"Sid\" : \"Enable IAM User Permissions\",\n    \"Effect\" : \"Allow\",\n    \"Principal\" : {\n      \"AWS\" : \"arn:aws:iam::677846949879:root\"\n    },\n    \"Action\" : \"kms:*\",\n    \"Resource\" : \"*\"\n  }, {\n    \"Sid\" : \"Allow access for Key Administrators\",\n    \"Effect\" : \"Allow\",\n    \"Principal\" : {\n      \"AWS\" : [ \"arn:aws:iam::677846949879:user/Dev_1\", \"arn:aws:iam::677846949879:user/Sec_1\", \"arn:aws:iam::677846949879:role/s3_role\" ]\n    },\n    \"Action\" : [ \"kms:Create*\", \"kms:Describe*\", \"kms:Enable*\", \"kms:List*\", \"kms:Put*\", \"kms:Update*\", \"kms:Revoke*\", \"kms:Disable*\", \"kms:Get*\", \"kms:Delete*\", \"kms:TagResource\", \"kms:UntagResource\", \"kms:ScheduleKeyDeletion\", \"kms:CancelKeyDeletion\" ],\n    \"Resource\" : \"*\"\n  } ]\n}"
+}
+
+
+
+KMS is integrated with cloud trail whic provides you the ability to audit 
+to help ensure your keys and your data is highlyu avaoilable KMS stores multiple copies of encryptred
+
+
+$ aws kms list-aliases
+{
+    "Aliases": [
+        {
+            "AliasName": "alias/aws/dynamodb",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/dynamodb"
+        },
+        {
+            "AliasName": "alias/aws/ebs",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/ebs"
+        },
+        {
+            "AliasName": "alias/aws/elasticfilesystem",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/elasticfilesystem"
+        },
+        {
+            "AliasName": "alias/aws/es",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/es"
+        },
+        {
+            "AliasName": "alias/aws/glue",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/glue"
+        },
+        {
+            "AliasName": "alias/aws/kinesisvideo",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/kinesisvideo"
+        },
+        {
+            "AliasName": "alias/aws/rds",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/rds"
+        },
+        {
+            "AliasName": "alias/aws/redshift",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/redshift"
+        },
+        {
+            "AliasName": "alias/aws/redshifttest",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/redshifttest"
+        },
+        {
+            "AliasName": "alias/aws/s3",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/s3"
+        },
+        {
+            "AliasName": "alias/aws/ssm",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/ssm"
+        },
+        {
+            "AliasName": "alias/aws/xray",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/aws/xray"
+        },
+        {
+            "AliasName": "alias/key",
+            "AliasArn": "arn:aws:kms:us-east-1:677846949879:alias/key",
+            "TargetKeyId": "e1149901-adfe-4c91-be6e-f2e435718337"
+        }
+    ]
+}
+
+
+Aws managed CMK
+------------------
+
+CMK in your account that are created managed and used in your behalf by an aws 
+
+AWS managed key vs customer managed key *google
+
+$ aws s3api put-object --bucket mybucketttwithkms --key 8.py --body 8.py
+.py
+$ aws s3api get-object --bucket bucketname --key 8.py p7.py
+
+
+How amazon Simple storage service(amazon S3) uses AWS KMS 
+---------------------------------------------------------
+
+$ aws s3 sync repo/ s3://
+
+
+
+
+
+
